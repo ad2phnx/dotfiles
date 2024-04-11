@@ -3,3 +3,6 @@
 [user]
 	email = ad2phnx@gmail.com
 	name = Anatoliy Dinis
+[safe]
+	directory = /usr/ports
+	directory = /usr/local/poudriere/ports/local
