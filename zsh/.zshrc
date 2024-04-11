@@ -230,15 +230,29 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ls="lsd"
 alias cls="clear"
-alias cat="bat"
+if command -v bat &> /dev/null; then
+    alias cat="bat"
+fi
 alias grep="rg"
-alias grep="batgrep"
-alias diff="batdiff"
-alias lesspipe="batpipe"
-alias watch="batwatch"
-alias man="batman"
+if command -v batgrep &> /dev/null; then
+    alias grep="batgrep"
+fi
+if command -v batdiff &> /dev/null; then
+    alias diff="batdiff"
+fi
+if command -v batpipe &> /dev/null; then
+    alias lesspipe="batpipe"
+fi
+if command -v batwatch &> /dev/null; then
+    alias watch="batwatch"
+    alias wkpo='batwatch --command kubectl get po'
+else
+    alias wkpo='watch "kubectl get po"'
+fi
+if command -v batman &> /dev/null; then
+    alias man="batman"
+fi
 alias kpo="kubectl get po -o wide"
-alias wkpo='batwatch --command kubectl get po'
 alias vim="nvim"
 # Set EDITOR environment variable
 if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
