@@ -161,6 +161,7 @@ HIST_STAMPS="%Y-%m-%d %H:%M:%S"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+# Tmux Autostart
 plugins=(
   git
   history
@@ -186,12 +187,13 @@ plugins=(
   zsh-vi-mode
   zsh-fzf-history-search
 )
+# User configuration
+#ZSH_TMUX_AUTOSTART='true'
+bindkey -v
 
 # used by Zsh to determine where it should look for functions and scripts
 fpath+=${ZSM_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 source $ZSH/oh-my-zsh.sh
-
-# User configuration
 
 # Check if jenv exists in PATH
 if command -v jenv &> /dev/null; then
@@ -264,9 +266,6 @@ else
     export EDITOR="nvim"
 fi
 
-# Tmux Autostart
-ZSH_TMUX_AUTOSTART='true'
-bindkey -v
 
 # Auto suggest
 bindkey '^f' autosuggest-accept
@@ -295,6 +294,7 @@ elif [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
     export MY_VAR="Windows value"
 fi
 
+setopt re_match_pcre
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
