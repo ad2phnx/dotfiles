@@ -230,7 +230,9 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias ls="lsd"
+if command -v lsd &> /dev/null; then
+    alias ls="lsd"
+fi
 alias cls="clear"
 if command -v bat &> /dev/null; then
     alias cat="bat"
@@ -298,3 +300,4 @@ setopt re_match_pcre
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+

@@ -4,8 +4,11 @@ export GTK_IM_MODULE=fcitx
 export GTK4_IM_MODULE=fcitx
 export QT_IM_MODULE=xim
 export XMODIFIERS=@im=fcitx
-/usr/local/bin/mozc start
-fcitx -r -d
+#/usr/local/bin/mozc start
+#fcitx -r -d
+
+# VNC?
+#x0vncserver -PasswordFile ~/.vnc/passwd
 
 xsetroot -cursor_name left_ptr
 
@@ -13,13 +16,14 @@ DEFAULT=awesome
 
 xrdb .Xresources
 
-CK="ck-launch-session dbus-launch --exit-with-session"
-
-case $1 in
-xmonad)
-    exec ${CK} xmonad
-    ;;
-*)
-    exec ${CK} $DEFAULT
-    ;;
-esac
+CK="ck-launch-session dbus-launch --sh-syntax --exit-with-session"
+exec ${CK} xmonad
+#
+#case $1 in
+#xmonad)
+#    exec ${CK} xmonad
+#    ;;
+#*)
+#    exec ${CK} $DEFAULT
+#    ;;
+#esac
