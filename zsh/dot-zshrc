@@ -164,6 +164,7 @@ HIST_STAMPS="%Y-%m-%d %H:%M:%S"
 # Tmux Autostart
 plugins=(
   git
+  z
   history
   taskwarrior
   brew
@@ -298,6 +299,12 @@ fi
 
 if [[ "$(uname)" == "FreeBSD" ]]; then
     setopt re_match_pcre
+fi
+
+if [[ "$(uname)" == "Linux" ]]; then
+    if command -v grc &> /dev/null; then
+        source /usr/share/grc/grc.zsh
+    fi
 fi
 
 if [[ "$(uname)" == "Darwin" ]]; then

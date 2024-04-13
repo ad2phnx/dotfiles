@@ -25,7 +25,7 @@ setxkbmap jp &
 #fcitx -r -d
 
 # VNC?
-#x0vncserver -PasswordFile ~/.vnc/passwd
+#x0vncserver -PasswordFile ~/.vnc/passwd 
 
 # Notification daemon
 /usr/libexec/notification-daemon &
@@ -59,8 +59,9 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 DEFAULT=awesome
 
 CK="ck-launch-session dbus-launch --sh-syntax --exit-with-session"
-exec ${CK} xmonad
-
+DBUS="dbus-launch --sh-syntax --exit-with-session"
+exec ${DBUS} xmonad
+#
 #case $1 in
 #xmonad)
 #    exec ${CK} xmonad
