@@ -68,8 +68,8 @@ Xft.hintstyle:  hintslight
 
 xterm*VT100.geometry:     80x25
 XTerm*renderFont: true
-XTerm*faceName: xft:Mononoki Nerd Font
-XTerm*faceSize: 11
+XTerm*faceName: xft:Inconsolata Nerd Font
+XTerm*faceSize: 12
 XTerm*utf8: 2
 XTerm*locale: true
 xterm*dynamicColors:      true
@@ -289,7 +289,14 @@ URxvt*color12: rgb:34/65/a4
 !URxvt*font: xft:Source\ Code\ Pro\ for\ Powerline:pixelsize=12,xft:Kochi\ Gothic:antialias=false,NotoEmoji\ Nerd\ Font\ Mono,xft:Inconsolata\ Nerd\ Font\ Mono:pixelsize=11,9x15
 !URxvt*font: xft:FantasqueSansMono\ Nerd\ Font\ Mono:pixelsize=12
 !URxvt*font: xft:Inconsolata\ Nerd\ Font\ Mono:pixelsize=12,xft:NotoEmoji\ Nerd\ Font\ Mono:pixelsize=12
-URxvt.font: xft:Inconsolata Nerd Font Regular Mono:size=12
+URxvt.font:  xft:UbuntuMono Nerd Font:size=12, \
+		 xft:Inconsolata Nerd Font:size=12, \
+		 xft:DejaVuSansMono Nerd Font:size=12, \
+		 xft:DroidSansMono Nerd Font:size=12, \
+		 xft:FuraMono Nerd Font:size=12, \
+		 xft:Roboto Mono :size=12, \
+		 xft:Noto Sans Mono:size=12, \
+		 xft:Monospace:style=Medium:antialias=false
 !URxvt*font: 9x15
 !URxvt*boldFont: 9x15bold
 
@@ -301,7 +308,7 @@ URxvt.font: xft:Inconsolata Nerd Font Regular Mono:size=12
 ! URxvt*italicFont: fontlist
 
 ! Linespacing
-URxvt*letterSpace: 0
+URxvt*letterSpace: -5
 
 ! The font list to use for displaying bold, italic or bold italic characters, respectively.
 ! URxvt*boldItalicFont: fontlist
@@ -462,22 +469,22 @@ URxvt*letterSpace: 0
 ! Compile frills: Associate action with keysym sym. The intervening resource name keysym. cannot be omitted.
 ! URxvt*keysym.sym: action
 
-URxvt*perl-ext-common: default,clipboard,matcher,keyboard-select,searchable-scrollback
+!URxvt*perl-ext-common: default,clipboard,matcher,keyboard-select,searchable-scrollback
 !URxvt*perl-ext-common: default,selection-to-clipboard,pasta,matcher,keyboard-select
-URxvt*keysym.M-u: perl:url-select:select_next
+!URxvt*keysym.M-u: perl:url-select:select_next
 !URxvt*keysym.Control-Up: \033[1;5A
 !URxvt*keysym.Control-Down: \033[1;5B
 !URxvt*keysym.Control-Left: \033[1;5D
 !URxvt*keysym.Control-Right: \033[1;5C
 
 ! Comma-separated list(s) of perl extension scripts (default: "default") to use in this terminal instance; option -pe.
-URxvt*perl-ext: default,matcher
+!URxvt*perl-ext: default,matcher
 
 ! Perl code to be evaluated when all extensions have been registered. See the urxvtperl(3) manpage.
 ! URxvt*perl-eval: string
 
 ! Colon-separated list of additional directories that hold extension scripts. When looking for perl extensions, urxvt will first look in these
-URxvt*perl-lib: /usr/lib64/urxvt/perl/
+!URxvt*perl-lib: /usr/lib64/urxvt/perl/
 
 ! Additional selection patterns, see the urxvtperl(3) manpage for details.
 ! URxvt*selection.pattern-idx: perl-regex

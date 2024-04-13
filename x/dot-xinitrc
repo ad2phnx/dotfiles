@@ -1,24 +1,66 @@
+#!/bin/bash
+
+# Set resolution
+xrandr -s 1920x1080 &
+
+# background
+feh --bg-max ~/Pictures/bloodborne.png &
+
+# Set keyboard layout
+setxkbmap jp &
+
+# Ibus
+#export XMODIFIERS=@im=ibus
+#export GTK_IM_MODULE=ibus
+#export QT_IM_MODULE=ibus
+
+#ibus-daemon -drx &
 
 # Fcitx
-export GTK_IM_MODULE=fcitx
-export GTK4_IM_MODULE=fcitx
-export QT_IM_MODULE=xim
-export XMODIFIERS=@im=fcitx
+#export GTK_IM_MODULE=fcitx
+#export GTK4_IM_MODULE=fcitx
+#export QT_IM_MODULE=xim
+#export XMODIFIERS=@im=fcitx
 #/usr/local/bin/mozc start
 #fcitx -r -d
 
 # VNC?
 #x0vncserver -PasswordFile ~/.vnc/passwd
 
-xsetroot -cursor_name left_ptr
+# Notification daemon
+/usr/libexec/notification-daemon &
 
+# URXVT daemon
+#urxvtd -q -o -f &
+
+# XResources bind
+xrdb -merge ~/.Xresources &
+
+# Music Player
+mpd &
+
+# Set cursor
+xset r rate 250 60
+xsetroot -cursor_name left_ptr &
+
+# Composite Manager
+xcompmgr &
+
+# Lua Path
+if [[ -n "`which luarocks 2>/dev/null`" ]]; then
+    eval `luarocks path --bin`
+fi
+
+# Conky
+#nohup conky -c "${HOME}/.config/gen2con/main.rc" > "${HOME}/.tmp/conky.log" 2>&1 &
+
+# Fix Java windows with xmonad
+export _JAVA_AWT_WM_NONREPARENTING=1
 DEFAULT=awesome
-
-xrdb .Xresources
 
 CK="ck-launch-session dbus-launch --sh-syntax --exit-with-session"
 exec ${CK} xmonad
-#
+
 #case $1 in
 #xmonad)
 #    exec ${CK} xmonad
