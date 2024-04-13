@@ -6,3 +6,15 @@
 [safe]
 	directory = /usr/ports
 	directory = /usr/local/poudriere/ports/local
+[alias]
+    graph = log --decorate --graph --name-status --oneline
+    co = checkout
+    cm = commit
+    st = status
+    br = branch -av
+    ft = fetch --prune
+    rt = rev-parse --show-toplevel
+    pl = pull
+    ps = push
+    df = diff
+    sync-main = fetch origin master:master

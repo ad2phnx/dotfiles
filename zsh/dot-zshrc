@@ -296,7 +296,16 @@ elif [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
     export MY_VAR="Windows value"
 fi
 
-setopt re_match_pcre
+if [[ "$(uname)" == "FreeBSD" ]]; then
+    setopt re_match_pcre
+fi
+
+if [[ "$(uname)" == "Darwin" ]]; then
+    . /opt/homebrew/etc/profile.d/z.sh
+    if command -v grc &> /dev/null; then
+        source /opt/homebrew/etc/grc.zsh
+    fi
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
