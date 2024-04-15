@@ -4,10 +4,10 @@
 xrandr -s 1920x1080 &
 
 # background
-feh --bg-max ~/Pictures/bloodborne.png &
+feh --bg-max ~/Pictures/1920x1080.jpg
 
 # Set keyboard layout
-setxkbmap jp &
+#setxkbmap jp &
 
 # Ibus
 #export XMODIFIERS=@im=ibus
@@ -28,7 +28,7 @@ setxkbmap jp &
 #x0vncserver -PasswordFile ~/.vnc/passwd 
 
 # Notification daemon
-/usr/libexec/notification-daemon &
+#/usr/libexec/notification-daemon &
 
 # URXVT daemon
 #urxvtd -q -o -f &
@@ -37,7 +37,7 @@ setxkbmap jp &
 xrdb -merge ~/.Xresources &
 
 # Music Player
-mpd &
+#mpd &
 
 # Set cursor
 xset r rate 250 60
@@ -60,7 +60,8 @@ DEFAULT=awesome
 
 CK="ck-launch-session dbus-launch --sh-syntax --exit-with-session"
 DBUS="dbus-launch --sh-syntax --exit-with-session"
-exec ${DBUS} xmonad
+exec xmonad
+
 #
 #case $1 in
 #xmonad)
