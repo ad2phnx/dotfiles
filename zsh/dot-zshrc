@@ -268,6 +268,7 @@ else
     export VISUAL="nvim"
     export EDITOR="nvim"
 fi
+alias icat="kitten icat"
 
 
 # Auto suggest
@@ -299,6 +300,15 @@ fi
 
 if [[ "$(uname)" == "FreeBSD" ]]; then
     setopt re_match_pcre
+# The following lines were added by compinstall
+
+    zstyle ':completion:*' completer _complete _ignored
+    zstyle :compinstall filename '/home/adtwo/.zshrc'
+
+    autoload -Uz compinit
+    compinit
+# End of lines added by compinstall
+    setopt autocd autopushd pushdignoredups
 fi
 
 if [[ "$(uname)" == "Linux" ]]; then
