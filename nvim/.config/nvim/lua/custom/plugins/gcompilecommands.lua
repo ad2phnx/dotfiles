@@ -5,3 +5,5 @@ return {
   },
   ft = { 'c', 'cpp' }, -- lazy load plugin only on C and C++ filetypes
 }
+
+-- vim: ts=2 sts=2 sw=2 et

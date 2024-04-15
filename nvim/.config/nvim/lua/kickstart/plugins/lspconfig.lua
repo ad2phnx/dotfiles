@@ -135,64 +135,64 @@ return {
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local nvim_lsp = require 'nvim_lsp'
       local servers = {
-        -- clangd = {
-        --   keys = {
-        --     { '<leader>cR', '<cmd>ClangdSwitchSourceHeader<cr>', desc = 'Switch Source/Header (C/C++)' },
-        --   },
-        --   root_dir = function(fname)
-        --     return require('lspconfig.util').root_pattern(
-        --       'Makefile',
-        --       'configure.ac',
-        --       'configure.in',
-        --       'config.h.in',
-        --       'meson.build',
-        --       'meson_options.txt',
-        --       'build.ninja'
-        --     )(fname) or require('lspconfig.util').root_pattern('compile_commands.json', 'compile_flags.txt')(fname) or require('lspconfig.util').find_git_ancestor(
-        --       fname
-        --     )
-        --   end,
-        --   capabilties = {
-        --     offsetEncoding = { 'utf-16' },
-        --   },
-        --   cmd = {
-        --     'clangd',
-        --     '--background-index',
-        --     '--clang-tidy',
-        --     '--header-insertion=iwyu',
-        --     '--completion-style=detailed',
-        --     '--function-arg-placeholders',
-        --     '--fallback-style=llvm',
-        --   },
-        --   init_options = {
-        --     usePlaceholders = true,
-        --     completeUnimported = true,
-        --     clangdFileStatus = true,
-        --   },
-        -- },
+        clangd = {
+          keys = {
+            { '<leader>cR', '<cmd>ClangdSwitchSourceHeader<cr>', desc = 'Switch Source/Header (C/C++)' },
+          },
+          root_dir = function(fname)
+            return require('lspconfig.util').root_pattern(
+              'Makefile',
+              'configure.ac',
+              'configure.in',
+              'config.h.in',
+              'meson.build',
+              'meson_options.txt',
+              'build.ninja'
+            )(fname) or require('lspconfig.util').root_pattern('compile_commands.json', 'compile_flags.txt')(fname) or require('lspconfig.util').find_git_ancestor(
+              fname
+            )
+          end,
+          capabilties = {
+            offsetEncoding = { 'utf-16' },
+          },
+          cmd = {
+            'clangd',
+            '--background-index',
+            '--clang-tidy',
+            '--header-insertion=iwyu',
+            '--completion-style=detailed',
+            '--function-arg-placeholders',
+            '--fallback-style=llvm',
+          },
+          init_options = {
+            usePlaceholders = true,
+            completeUnimported = true,
+            clangdFileStatus = true,
+          },
+        },
         require('neoconf').setup {},
-        -- jdtls = {
-        --   java = {
-        --     settings = {
-        --       configuration = {
-        --         runtimes = {
-        --           {
-        --             name = 'JavaSE-17',
-        --             path = '/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home/',
-        --           },
-        --           {
-        --             name = 'JavaSE-11',
-        --             path = '/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home/',
-        --           },
-        --           {
-        --             name = 'JavaSE-1.8',
-        --             path = '/Library/Java/JavaVirtualMachines/jdk-1.8.jdk/Contents/Home/',
-        --           },
-        --         },
-        --       },
-        --     },
-        --   },
-        -- },
+        jdtls = {
+          java = {
+            settings = {
+              configuration = {
+                runtimes = {
+                  {
+                    name = 'JavaSE-17',
+                    path = '/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home/',
+                  },
+                  {
+                    name = 'JavaSE-11',
+                    path = '/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home/',
+                  },
+                  {
+                    name = 'JavaSE-1.8',
+                    path = '/Library/Java/JavaVirtualMachines/jdk-1.8.jdk/Contents/Home/',
+                  },
+                },
+              },
+            },
+          },
+        },
         -- jdtls = {
         --   cmd = {
         --     'java',
@@ -241,46 +241,46 @@ return {
         -- tsserver = {},
         --
 
-        -- lua_ls = {
-        --   -- cmd = {...},
-        --   -- filetypes { ...},
-        --   -- capabilities = {},
-        --   settings = {
-        --     Lua = {
-        --       runtime = { version = 'LuaJIT' },
-        --       workspace = {
-        --         checkThirdParty = false,
-        --         -- Tells lua_ls where to find all the Lua files that you have loaded
-        --         -- for your neovim configuration.
-        --         library = {
-        --           '${3rd}/luv/library',
-        --           unpack(vim.api.nvim_get_runtime_file('', true)),
-        --         },
-        --         -- If lua_ls is really slow on your computer, you can try this instead:
-        --         -- library = { vim.env.VIMRUNTIME },
-        --       },
-        --       -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-        --       -- diagnostics = { disable = { 'missing-fields' } },
-        --     },
-        --   },
-        -- },
-        -- bashls = {},
+        lua_ls = {
+          -- cmd = {...},
+          -- filetypes { ...},
+          -- capabilities = {},
+          settings = {
+            Lua = {
+              runtime = { version = 'LuaJIT' },
+              workspace = {
+                checkThirdParty = false,
+                -- Tells lua_ls where to find all the Lua files that you have loaded
+                -- for your neovim configuration.
+                library = {
+                  '${3rd}/luv/library',
+                  unpack(vim.api.nvim_get_runtime_file('', true)),
+                },
+                -- If lua_ls is really slow on your computer, you can try this instead:
+                -- library = { vim.env.VIMRUNTIME },
+              },
+              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+              -- diagnostics = { disable = { 'missing-fields' } },
+            },
+          },
+        },
+        bashls = {},
 
-        -- solargraph = {
-        --   cmd = { os.getenv 'HOME' .. '/.anyenv/envs/rbenv/shims/solargraph', 'stdio' },
-        --   root_dir = nvim_lsp.util.root_pattern('Gemfile', '.git', '.'),
-        --   settings = {
-        --     solargraph = {
-        --       autoformat = true,
-        --       completion = true,
-        --       diagnostic = true,
-        --       folding = true,
-        --       references = true,
-        --       rename = true,
-        --       symbols = true,
-        --     },
-        --   },
-        -- },
+        solargraph = {
+          cmd = { os.getenv 'HOME' .. '/.anyenv/envs/rbenv/shims/solargraph', 'stdio' },
+          root_dir = nvim_lsp.util.root_pattern('Gemfile', '.git', '.'),
+          settings = {
+            solargraph = {
+              autoformat = true,
+              completion = true,
+              diagnostic = true,
+              folding = true,
+              references = true,
+              rename = true,
+              symbols = true,
+            },
+          },
+        },
       }
       -- Ensure the servers and tools above are installed
       --  To check the current status of installed tools and/or manually install
@@ -289,7 +289,7 @@ return {
       --
       --  You can press `g?` for help in this menu
       require('mason').setup()
-      --require('java').setup()
+      require('java').setup()
 
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
@@ -302,11 +302,11 @@ return {
         --'marksman',
         --'quick_lint_js',
         --'haskell-language-server',
-        --'java-test',
-        --'java-debug-adapter',
-        --'cmakelang',
-        --'cmakelint',
-        --'jdtls',
+        'java-test',
+        'java-debug-adapter',
+        'cmakelang',
+        'cmakelint',
+        -- 'jdtls',
         --'solargraph',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -330,4 +330,5 @@ return {
     end,
   },
 }
+
 -- vim: ts=2 sts=2 sw=2 et

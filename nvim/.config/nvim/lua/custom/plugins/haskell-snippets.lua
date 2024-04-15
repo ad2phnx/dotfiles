@@ -7,3 +7,5 @@ return {
     require('luasnip').add_snippets('haskell', haskell_snippets, { key = 'haskell' })
   end,
 }
+
+-- vim: ts=2 sts=2 sw=2 et
