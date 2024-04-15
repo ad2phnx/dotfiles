@@ -1,0 +1,225 @@
+-- Imports
+import XMonad
+import XMonad.Actions.FloatSnap
+import XMonad.Config.Desktop
+import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.FadeInactive
+import XMonad.Hooks.FadeWindows
+import XMonad.Hooks.ManageDocks as M
+import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.ServerMode
+import XMonad.Hooks.UrgencyHook
+import XMonad.Layout.PerWorkspace (onWorkspace)
+import XMonad.Layout.IM
+import XMonad.Layout.Grid
+import XMonad.Layout.Spacing
+import XMonad.Layout.TwoPane
+import XMonad.Layout.NoBorders
+import XMonad.Layout.Reflect
+import XMonad.Layout.Tabbed
+import XMonad.Layout.ComboP
+import XMonad.Layout.MultiToggle
+import XMonad.Layout.Minimize
+import XMonad.Layout.BoringWindows
+import XMonad.Layout.ThreeColumns
+import XMonad.Layout.Column
+import XMonad.Layout.Named
+import XMonad.Layout.ResizableTile
+import XMonad.ManageHook
+import XMonad.Prompt
+import XMonad.Prompt.XMonad
+import XMonad.Prompt.Shell
+import qualified XMonad.StackSet as W
+import XMonad.Util.Paste
+import XMonad.Util.Run
+import XMonad.Util.NamedScratchpad
+import System.IO
+import System.Exit
+import Data.List
+import qualified Data.Map as M
+import qualified XMonad.Actions.ConstrainedResize as Sqr
+import qualified XMonad.Layout.Magnifier as Mag
+import qualified XMonad.Layout.ToggleLayouts as Tog
+
+baseConfig = desktopConfig
+
+-- Main Function
+main = xmonad =<< statusBar myBar myPP toggleStrutsKey myConfig
+
+-- Launch Bar
+myFont = "-*-dejavu sans mono-medium-r-normal--*-80-*-*-*-*-iso10646-1"
+myBar = "dzen2 -dock -x '0' -y '0' -h '18' -w '1920' -ta 'l' -fg '#cb4b16' -bg '#080709' -fn 'Font Awesome 5 Free Solid'"
+myBitmapsDir = "/home/adtwo/.xmonad/.icons"
+
+-- Custom PP
+myPP = dzenPP
+  --{ ppCurrent           = dzenColor "#16cb4b" "" . wrap ("^i(" ++ myBitmapsDir ++ "/has_win.xbm)") ""
+  { ppCurrent           = dzenColor "#1793d1" "" . wrap ("^i(" ++ myBitmapsDir ++ "/has_win.xbm)") ""
+  , ppHidden            = dzenColor "00576d" "" . wrap ("^i(" ++ myBitmapsDir ++ "/has_win.xbm)") "" . filterNSP
+  , ppVisible           = dzenColor "#2aa198" "" . wrap ("^i(" ++ myBitmapsDir ++ "/has_win.xbm)") ""
+  , ppHiddenNoWindows   = dzenColor "#7b7b7b" "#080709" . wrap ("^i(" ++ myBitmapsDir ++ "/has_win_nv.xbm)") "" . filterNSP
+  , ppUrgent            = dzenColor "#ff0ff" "" . wrap ("^i(" ++ myBitmapsDir ++ "/info_03.xbm)") "" . dzenStrip
+  , ppWsSep             = " "
+  , ppSep               = " ^fn('Source Code Pro')| "
+  , ppLayout            = dzenColor "#ffffff" "" .
+                          (\x -> case x of
+                              "Mirror ResizableTall"  ->  "^fg(#fdfdfd)^i(" ++ myBitmapsDir ++ "/mtall.xbm)"
+                              "Spacing 2 ResizableTall"           ->  "^fg(#fdfdfd)^i(" ++ myBitmapsDir ++ "/tall.xbm)"
+                              "Spacing 2 ReflectX ResizableTall"           ->  "^fg(#fdfdfd)^i(" ++ myBitmapsDir ++ "/rtall.xbm)"
+                              "Spacing 2 Full"                    ->  "^fg(#fdfdfd)^i(" ++ myBitmapsDir ++ "/full.xbm)"
+                              "Tabbed Simples"          ->  "^fg(#fdfdfd)^i(" ++ myBitmapsDir ++ "/full.xbm)"
+                              "Spacing 2 Grid"                    ->  "^fg(#fdfdfd)^i(" ++ myBitmapsDir ++ "/grid.xbm)"
+                              "TwoPane"                 ->  "^fg(#fdfdfd)^i(" ++ myBitmapsDir ++ "/two_pane.xbm)"
+                              "Simple Float"            ->  "-"
+                              _                         ->  x
+                          )
+  , ppTitle             = ("" ++) . dzenColor "#1793d1" "" . dzenEscape
+  }
+  where
+      filterNSP ws = if ws /= "NSP" then ws else ""
+
+-- Manage Hooks
+myManageHook = composeAll . concat $
+      [ [ className =? "google-chrome"  --> doF (W.shift (myWorkspaces !! 1))]
+      , [ className =? "Google-chrome"  --> doF (W.shift (myWorkspaces !! 1))]
+      , [ className =? "kiten"          --> doF (W.shift (myWorkspaces !! 2))]
+      , [ className =? "Xspim"          --> doF (W.shift (myWorkspaces !! 2))]
+      , [ className =? "Vlc"            --> doF (W.shift (myWorkspaces !! 3))]
+      , [ className =? "smplayer"       --> doF (W.shift (myWorkspaces !! 3))]
+      , [ className =? "Hiro"           --> doF (W.shift (myWorkspaces !! 4))]
+      , [ className =? "ppsspp"         --> doF (W.shift (myWorkspaces !! 4))]
+      , [ className =? "Snes9x-gtk"     --> doF (W.shift (myWorkspaces !! 4))]
+      , [ className =? "Zenity"         --> doF (W.shift (myWorkspaces !! 4))]
+      , [ className =? "feh"            --> doF (W.shift (myWorkspaces !! 5))]
+      , [ className =? "Synfigstudio"   --> doF (W.shift (myWorkspaces !! 5))]
+      , [ className =? "Gimp"           --> doF (W.shift (myWorkspaces !! 5))]
+      , [ className =? "Filezilla"      --> doF (W.shift (myWorkspaces !! 7))]
+      , [ className =? "qBittorrent"    --> doF (W.shift (myWorkspaces !! 7))]
+      , [ className =? "Gnome-power-statistics" --> doF (W.shift (myWorkspaces !! 2))]
+      , [ className =? "Guvcview"       --> doF (W.shift (myWorkspaces !! 2))]
+      , [ className =? "guvcview"       --> doF (W.shift (myWorkspaces !! 2))]
+      , [ className =? "VirtualBox"     --> doF (W.shift (myWorkspaces !! 2))]
+      , [ className =? "Anki"           --> doF (W.shift (myWorkspaces !! 2))]
+      , [ className =? "Slack"          --> doF (W.shift (myWorkspaces !! 6))]
+      , [ title     =? "Steam"          --> doF (W.shift (myWorkspaces !! 8))]
+      , [ title     =? "LibreOffice"    --> doF (W.shift (myWorkspaces !! 2))]
+      , [ title     =? "mutt"           --> doF (W.shift (myWorkspaces !! 0))]
+      , [ title     =? "tmux"           --> doF (W.shift (myWorkspaces !! 6))]
+      , [ title     =? f                --> doCenterFloat | f <- myTitleWindows ]
+      , [ className =? f                --> doCenterFloat | f <- myFloatingWindows ]
+      ]
+      where
+          myFloatingWindows = [ "Xspim", "Filezilla", "feh", "Hiro", "Zenity", "ppsspp", "Snes9x-gtk", "Galculator", "Gnome-power-statistics", "Guvcview", "guvcview", "VirtualBox", "Gifview", "Anki", "processing-app-Base"]
+          myTitleWindows = [ "mutt" ]
+
+-- Log Hooks
+myLogHook = fadeInactiveLogHook fadeAmount
+      where fadeAmount = 0.95
+
+-- Key binding toggle bar gap
+toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
+
+-- Workspaces
+myWorkspaces :: [String]
+--myWorkspaces = clickable . (map dzenEscape) $ ["main", "inet", "work", "vidy", "game", "draw", "soci", "down", "stem"]
+myWorkspaces = clickable . (map dzenEscape) $ ["\xf108", "\xf0ac", "\xf0f2", "\xf008", "\xf11b", "\xf1fc", "\xf1fa", "\xf019", "\xf120"]
+      where clickable l = [ "^ca(1,xdotool key super+" ++ show (n) ++ ")" ++ ws ++ "^ca()" |
+                          (i,ws) <- zip [1..] l, let n = i ]
+
+
+-- Layouts
+myLayout = spacing 2 $ onWorkspace (myWorkspaces !! 0) fullL $ onWorkspace (myWorkspaces !! 1) webL $ onWorkspace (myWorkspaces !! 3) fullL $ onWorkspace (myWorkspaces !! 4) fullL $ onWorkspace (myWorkspaces !! 5) fullL $ standardLayouts
+    where
+        standardLayouts = avoidStruts $ (tiled ||| reflectTiled ||| Mirror tiled ||| Grid ||| Full)
+
+        -- Layouts
+        tiled   = smartBorders (ResizableTall 1 (2/100) (1/2) [])
+        reflectTiled = (reflectHoriz tiled)
+        full    = noBorders Full
+
+        webL    = avoidStruts $ full ||| tiled ||| reflectTiled ||| Grid
+
+        fullL   = avoidStruts $ full
+
+-- Main Configuration
+myConfig = ewmh def
+      { manageHook         = manageDocks <+> namedScratchpadManageHook myScratchPads <+> myManageHook <+> manageHook def
+      , layoutHook         = myLayout
+      , logHook            = myLogHook
+      , terminal           = myTerminal
+      , modMask            = myModMask
+      , borderWidth        = myBorderWidth
+      , focusedBorderColor = myFocusedBorderColor
+      , keys               = myKeys <+> keys def
+      , mouseBindings      = myMouse <+> mouseBindings def
+      , workspaces         = myWorkspaces
+      --, handleEventHook    = handleEventHook def <+> ewmhFullscreen
+      , handleEventHook    = handleEventHook def
+      }
+
+myXPConfig = def
+      { font        = myFont
+      , fgColor     = "#1793d1"
+      , bgColor     = "#080709"
+      , bgHLight    = "#080709"
+      , fgHLight    = "#df5274"
+      , position    = Bottom
+      , historySize = 512
+      , showCompletionOnTab = True
+      , historyFilter = deleteConsecutive
+      }
+
+-- Customization
+myTerminal              = "kitty"
+myModMask               = mod3Mask  -- Win Key or Super_L
+myBorderWidth           = 1
+myFocusedBorderColor    = "#1793d1"
+
+-- Scratchpads
+myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
+                , NS "mixer" spawnMixer findMixer manageMixer
+                ]
+        where
+                spawnMixer = myTerminal ++ " -n ncmpcpp -t ncmpcpp -c ncmpcpp -e ncmpcpp"
+                findMixer = resource =? "ncmpcpp"
+                manageMixer = customFloating $ W.RationalRect l t w h
+                        where
+                                h = 0.5
+                                w = 0.5
+                                t = 1 - h
+                                l = (1 - w)
+                spawnTerm = myTerminal ++ " -n scratchpad -t scratchpad -c scratchpad"
+                findTerm = resource =? "scratchpad"
+                manageTerm = customFloating $ W.RationalRect l t w h
+                        where
+                                h = 0.5
+                                w = 0.5
+                                t = (1 - h)/2
+                                l = (1 - w)/2
+
+-- Keyboard And Mouse
+myMouse conf@(XConfig {XMonad.modMask = modm}) = M.fromList
+      [ ((modm, button3),               (\w -> focus w >> Sqr.mouseResizeWindow w False))
+      , ((modm .|. shiftMask, button3), (\w -> focus w >> Sqr.mouseResizeWindow w True))
+      ]
+myKeys conf@(XConfig {XMonad.modMask = modm})  = M.fromList $
+      [ ((modm .|. shiftMask, xK_z), spawn "xscreensaver-command -lock")
+      --, ((controlMask, xK_Print),    spawn "sleep 0.2; scrot --focused -e 'mv $f ~/Screenshots'")
+      , ((modm, xK_F8),    spawn "sleep 0.2; scrot --focused -e 'mv $f ~/Screenshots'")
+      , ((0, xK_Print),              spawn "scrot -e 'mv $f ~/Screenshots'")
+      , ((modm, xK_i),               spawn "google-chrome-stable")
+      --, ((modm, xK_v),               spawn "vlc")
+      , ((modm, xK_v),               namedScratchpadAction myScratchPads "mixer")
+      , ((modm, xK_p),               shellPrompt myXPConfig)
+      , ((modm, xK_q),               spawn myRestart)
+      , ((modm, xK_s),               namedScratchpadAction myScratchPads "terminal")
+      , ((modm, xK_n),               refresh)
+      , ((0, xK_Insert),             pasteSelection)
+      , ((modm, xK_a),               sendMessage MirrorShrink)
+      , ((modm, xK_z),               sendMessage MirrorExpand)
+      ]
+
+-- Kill zombie dzens
+myRestart :: String
+myRestart = "for pid in `pgrep dzen2`; do kill -9 $pid; done && for pid in `pgrep wallpaper.sh`; do kill -9 $pid; done && for pid in `pgrep batterycheck.sh`; do kill -9 $pid; done && xmonad --recompile && xmonad --restart"
