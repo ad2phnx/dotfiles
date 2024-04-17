@@ -85,13 +85,17 @@ if vim.fn.has 'win32' == 1 then
   vim.opt.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
   vim.opt.shellquote = ''
   vim.opt.shellxquote = ''
-elseif vim.fn.has 'mac' == 1 or vim.fn.has 'unix' == 1 then
+elseif vim.fn.has 'mac' == 1 then
   vim.opt.shell = '/bin/zsh'
   vim.opt.shellcmdflag = '-c'
   vim.opt.shellredir = ''
   vim.opt.shellpipe = '2>&1 | tee %s >/dev/null; exit ${PIPESTATUS[0]}'
   vim.opt.shellquote = '\\'
   vim.opt.shellxquote = ''
+elseif vim.fn.has 'bsd' == 1 then
+  vim.opt.shell = '/usr/local/bin/zsh'
+else
+  vim.opt.shell = '/usr/bin/zsh'
 end
 
 -- vim: ts=2 sts=2 sw=2 et
