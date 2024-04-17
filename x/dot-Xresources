@@ -288,15 +288,20 @@ URxvt*color12: rgb:34/65/a4
 !URxvt*font: xft:Source\ Code\ Pro\ for\ Powerline:pixelsize=12,xft:Kochi\ Gothic:antialias=false,xft:NotoEmoji\ Nerd\ Font\ Mono:style=Book,9x15
 !URxvt*font: xft:Source\ Code\ Pro\ for\ Powerline:pixelsize=12,xft:Kochi\ Gothic:antialias=false,NotoEmoji\ Nerd\ Font\ Mono,xft:Inconsolata\ Nerd\ Font\ Mono:pixelsize=11,9x15
 !URxvt*font: xft:FantasqueSansMono\ Nerd\ Font\ Mono:pixelsize=12
-!URxvt*font: xft:Inconsolata\ Nerd\ Font\ Mono:pixelsize=12,xft:NotoEmoji\ Nerd\ Font\ Mono:pixelsize=12
-URxvt.font:  xft:UbuntuMono Nerd Font:size=12, \
-		 xft:Inconsolata Nerd Font:size=12, \
-		 xft:DejaVuSansMono Nerd Font:size=12, \
-		 xft:DroidSansMono Nerd Font:size=12, \
-		 xft:FuraMono Nerd Font:size=12, \
-		 xft:Roboto Mono :size=12, \
-		 xft:Noto Sans Mono:size=12, \
-		 xft:Monospace:style=Medium:antialias=false
+URxvt*font: xft:Inconsolata Nerd Font Mono:size=12, \
+            xft:DejavuSansM Nerd Font Mono:size=12, \
+            xft:DroidSansM Nerd Font Mono:size=12, \
+            xft:Roboto Mono Nerd Font Mono:size=12, \
+            xft:NotoSansM Nerd Font Mono:size=12
+            !xft:Monospace:style=Medium:antialias=false
+!!URxvt.font:  xft:UbuntuMono Nerd Font:size=12, \
+!		 xft:Inconsolata Nerd Font:size=12, \
+!		 xft:DejaVuSansMono Nerd Font:size=12, \
+!		 xft:DroidSansMono Nerd Font:size=12, \
+!		 xft:FuraMono Nerd Font:size=12, \
+!		 xft:Roboto Mono :size=12, \
+!		 xft:Noto Sans Mono:size=12, \
+!		 xft:Monospace:style=Medium:antialias=false
 !URxvt*font: 9x15
 !URxvt*boldFont: 9x15bold
 
@@ -308,7 +313,7 @@ URxvt.font:  xft:UbuntuMono Nerd Font:size=12, \
 ! URxvt*italicFont: fontlist
 
 ! Linespacing
-URxvt*letterSpace: -5
+!URxvt*letterSpace: -5
 
 ! The font list to use for displaying bold, italic or bold italic characters, respectively.
 ! URxvt*boldItalicFont: fontlist

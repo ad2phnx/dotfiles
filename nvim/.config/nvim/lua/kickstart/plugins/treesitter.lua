@@ -24,7 +24,7 @@ return {
           'java',
           'javascript',
           'json',
-          'latex',
+          --'latex',
           'lua',
           'lua',
           'luadoc',
