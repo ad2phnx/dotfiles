@@ -212,6 +212,8 @@ fi
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -279,6 +281,7 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 # Fuzzyfinder
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 
 # OS specific settings
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
