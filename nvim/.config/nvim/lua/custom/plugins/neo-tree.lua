@@ -87,6 +87,7 @@ return {
           local path = node:get_id()
           vim.fn.setreg('+', path, 'c')
         end,
+        ["Z"] = "expand_all_nodes",
       },
     },
     default_component_configs = {
@@ -96,7 +97,7 @@ return {
         expander_expanded = '',
         expander_highlight = 'NeoTreeExpander',
       },
-    },
+    }
   },
   config = function(_, opts)
     require('neo-tree').setup(opts)

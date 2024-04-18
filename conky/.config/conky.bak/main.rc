@@ -1,0 +1,76 @@
+-- vim: ts=4 sw=4 noet ai cindent syntax=lua
+--[[
+	Skin: conky.bak
+	Author: ad2phnx@gmail.com [a.dinis]
+	Date: 7/16/2019
+	Version: 0.1
+]]
+
+conky.config = {
+-- Conky settings --
+    update_interval = 1,                -- update time in seconds
+    background = false,                 -- fork to background
+    cpu_avg_samples = 2,                -- samples to averge for cpu
+    net_avg_samples = 2,                -- samples to averge for net
+    diskio_avg_samples = 2,             -- samples to average for disk i/o
+    override_utf8_locale = true,        -- force utf8 (requires xft)
+    double_buffer = true,               -- xdbe extension (use own window)
+    no_buffers = true,                  -- subtract buffers from used memory
+    text_buffer_size = 256,             -- standard text buffer size
+    imlib_cache_size = 10,              -- imlib2 image cache size
+    max_user_text = 15000,              -- maximum size user text buffer
+    format_human_readable = true,       -- bytes readable (i.e., KiB, MiB, etc)
+    out_to_console = false,             -- text to stdout
+    out_to_stderr = false,              -- text to stderr
+    extra_newline = false,              -- extra line when writing to stdout
+
+-- Window specifications --
+    own_window = true,                  -- create own window
+    own_window_class = 'Conky',         -- manual set name of WM_CLASS
+    own_window_type = 'override',       -- normal, desktop, dock, panel, override
+    own_window_transparent = true,      -- if argb enabled, set bg opacity to 0%
+    own_window_argb_visual = true,      -- real transparency, not work w/ override
+    own_window_argb_value = 90,         -- alpha value, 0-255
+    own_window_hints = 'undecorated,sticky,below,skip_taskbar,skip_pager',
+                                        -- window manager hints, not work w/ override
+    own_window_title = 'conky.bak-conky',     -- window name
+    own_window_colour = '000000',       -- when transparent false, set bg color
+    minimum_width = 1920,                -- minimum width of window
+    minimum_height = 1080,               -- minimum height of window
+    alignment = 'br',           -- alignment (top/middle/bottom|left/middle/right)
+    gap_x = 0,                          -- gap between horizontal border
+    gap_y = 0,                          -- gap between vertical border
+
+-- Graphics settings --
+    draw_shades = false,                -- shades
+    draw_outline = false,               -- outlines
+    draw_borders = false,               -- borders around text
+    draw_graph_borders = false,         -- graph borders
+    border_width = 0,                   -- width of borders
+    border_inner_margin = 0,            -- inner border margin
+    border_outer_margin = 0,            -- outer border margin
+    stippled_borders = 0,               -- border stippling (dashing)
+    default_color = 'white',            -- default color and border color
+    default_outline_color = 'white',    -- default outline color
+    default_shade_color = 'white',      -- default shade color
+    show_graph_range = false,           -- time range covered by graph
+    show_graph_scale = false,           -- maximum value in scaled graphs
+
+-- Text settings --
+    use_xft = true,                     -- anti-aliased fonts
+    xftalpha = 1,                       -- alpha value for xft font
+    font = 'DejaVu Sans Mono:size=10',  -- font to use in X (can use xfontsel)
+    uppercase = false,                  -- render text in uppercase
+    use_spacer = 'none',                -- add spaces around certain objects
+
+-- Color settings --
+    color0 = 'ffffff',                  -- custom color
+
+-- Lua settings --
+    lua_load = '/home/adtwo/.config/conky.bak/lua/main.lua',
+                                        -- lua file to load
+    lua_draw_hook_post = 'main',        -- lua function to run post load
+}
+
+conky.text = [[
+]]
